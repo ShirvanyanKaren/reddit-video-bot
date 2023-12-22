@@ -1,13 +1,6 @@
-# lets pull some data from reddit api print it
-
 import praw
 import json
-import os
-import time
-import datetime
-import requests
 import sys
-import re
 import random
 # import config as cfg 
 import configparser
@@ -26,7 +19,7 @@ username = config['Reddit']['username']
 subreddits_c = config['subreddit']
 
 working_dir = config['Directory']['path']
-output_dir = working_dir + config['Directory']['output_file']
+output_dir = config['Directory']['output_directory']
 used_posts = f"{output_dir}/{config['Directory']['used_posts']}"
 voicer_overs = f"{output_dir}/Voiceovers"
 screenshots = f"{output_dir}/Screenshots"
@@ -40,10 +33,6 @@ reddit = praw.Reddit(client_id=client_id,
                         username=username)
 
 
-
-
-
-
 def randomPosts(number):
     subreddit_list = list(subreddits_c.values())
     random_subreddit = random.choice(subreddit_list)
@@ -51,18 +40,6 @@ def randomPosts(number):
     subreddit = reddit.subreddit(random_subreddit)
     hot_posts = subreddit.hot(limit=number)
     return hot_posts
-
-
-# for submission in hot_posts:
-#     len = len(submission.selftext)
-#     print("the length is: " + str(len))
-#     while len < 100 and not checkIfUsed(submission.id):
-#         len = len(submission.selftext)
-#         print("the length is: " + len)
-#         hot_posts = subreddit.hot(limit=1)
-
-
-
 
 files_finder = {}
 
